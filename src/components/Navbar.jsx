@@ -81,7 +81,7 @@ export default function Navbar() {
             ))}
           </ul>
         </div>
-        <div className="hidden lg:block">
+        <div className="lg:block">
           <button
             onClick={async () => {
               if (isLoggedIn) {

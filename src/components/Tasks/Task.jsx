@@ -11,20 +11,17 @@ function Task({ product, collectionId }) {
   const { fetchAllTasks } = useContext(MyContext);
   return (
     <>
-    {
-      
-      // console.log(new Date(product.date).toLocaleDateString())
-    }
+      {
+        // console.log(new Date(product.date).toLocaleDateString())
+      }
       <li
         key={product._id}
-        className="p-2  flex flex-col py-6 sm:flex-row sm:justify-between w-96 shadow-xl"
+        className="flex flex-col py-6 sm:flex-row sm:justify-between lg:w-96 md:w-96 w-74 p-3  shadow-xl"
       >
         <div className="flex w-68 space-x-2 sm:space-x-4">
           <img
             className="w-16 m-auto flex-shrink-0 rounded object-contain outline-none dark:border-transparent  sm:w-16"
-            src={
-              "https://cdn-icons-png.flaticon.com/512/3208/3208615.png"
-            }
+            src={"https://cdn-icons-png.flaticon.com/512/3208/3208615.png"}
             alt={product.title}
           />
           <div className="flex w-full flex-col justify-between pb-4">
@@ -72,7 +69,9 @@ function Task({ product, collectionId }) {
                 ></button>
               </div>
 
-                <span className="text-md font-bold">{new Date(product.date).toLocaleDateString()}</span>
+              <span className="text-md font-bold">
+                {new Date(product.date).toLocaleDateString()}
+              </span>
               <div className="text-right">
                 <button
                   onClick={() => {
@@ -103,7 +102,6 @@ function Task({ product, collectionId }) {
                     className="mt-2 w-full rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                   >
                     <Check size={16} />
-                    
                   </button>
                 ) : null}
               </div>
@@ -127,7 +125,6 @@ function Task({ product, collectionId }) {
                 type="button"
                 className="flex items-center space-x-2 px-2 py-1"
                 onClick={async () => {
-                  
                   const data = await task.updateTask(
                     title,
                     desc,
@@ -152,7 +149,6 @@ function Task({ product, collectionId }) {
                   <Heart className="text-black" size={16} />
                 )}
                 <span>Complete</span>
-              
               </button>
             </div>
           </div>
