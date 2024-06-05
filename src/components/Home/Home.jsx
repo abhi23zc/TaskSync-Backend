@@ -9,11 +9,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Home() {
+  
   const { isLoggedIn, setisLoggedIn } = useContext(MyContext);
   const navigate = useNavigate();
   const getUser = async () => {
     const data = await auth.getUser();
-
+    console.log(data)
     if (data.statusCode == 200) {
       setisLoggedIn(true);
     } else {
@@ -23,6 +24,7 @@ function Home() {
   };
 
   useEffect(() => {
+    if(!localStorage.getItem("token")) localStorage.setItem("token", "")
     getUser();
   }, []);
 

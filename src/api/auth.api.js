@@ -9,7 +9,7 @@ class Auth {
         headers: {
           "Access-Control-Allow-Credentials": true,
           "Content-Type": "application/json",
-          token: localStorage.getItem("token"),
+          "token": localStorage.getItem("token"),
         },
       }
     );
