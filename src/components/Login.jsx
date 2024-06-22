@@ -28,6 +28,7 @@ function Login() {
     console.log(data)
     if (data.statusCode == 200) {
       setisLoggedIn(true);
+      toast.success("Logged In Successfully")
 
       navigate("/");
     } else {
