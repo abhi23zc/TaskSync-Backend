@@ -24,7 +24,10 @@ function Home() {
   };
 
   useEffect(() => {
-    if(!localStorage.getItem("token")) localStorage.setItem("token", "")
+    if(!localStorage.getItem("token")) {
+      localStorage.setItem("token", "")
+      navigate("/login")
+    }
     getUser();
   }, []);
 
