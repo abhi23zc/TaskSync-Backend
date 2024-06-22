@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { HashLoader } from "react-spinners";
 
 export default function Add_Tasks() {
   const location = useLocation();
@@ -17,14 +17,25 @@ export default function Add_Tasks() {
   const [desc, setdesc] = useState("");
   const { fetchAllTasks } = useContext(MyContext);
 
+  const [loading, setloading] = useState(false);
   const submit = async () => {
-    console.log(collectionId);
-    fetchAllTasks(collectionId);
+   
+    try {
+      console.log(collectionId);
+      fetchAllTasks(collectionId);
+    } catch (e) {
+      toast.error("Error while adding task");
+    }
+    setname("")
+    setdesc("")
+
+    setloading(false);
   };
 
   return (
     <section>
-      <ToastContainer/>
+      {loading ? <HashLoader className="m-auto p-10" color="#36d7b7" /> : null}
+      <ToastContainer />
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="h-full w-full">
           <Tasks />
@@ -83,6 +94,7 @@ export default function Add_Tasks() {
                   <button
                     type="button"
                     onClick={async () => {
+                      setloading(true);
                       if (name && desc && collectionId) {
                         const data = await task.createTask(
                           name,
@@ -90,9 +102,10 @@ export default function Add_Tasks() {
                           collectionId
                         );
                         submit();
-                        toast("Task added Succesfully")
+                        toast("Task added Succesfully");
                       } else {
-                        toast("Task creation failed")
+                        setloading(false);
+                        toast("Task creation failed");
                       }
                     }}
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
@@ -105,7 +118,6 @@ export default function Add_Tasks() {
           </div>
         </div>
       </div>
-     
     </section>
   );
 }

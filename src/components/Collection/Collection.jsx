@@ -5,17 +5,25 @@ import { MyContext } from "../../context/TaskContext";
 import auth from "../../api/auth.api";
 import { useNavigate } from "react-router-dom";
 import Popup from "../Popup";
+import { toast } from "react-toastify";
+import { HashLoader } from "react-spinners";
 
 export function Collection() {
   const { products, setproducts, fetchAllCollection } = useContext(MyContext);
+  const [loading, setloading] = useState(false)
   const navigate = useNavigate();
   useEffect(() => {
+    
     fetchAllCollection();
   }, []);
 
   return (
+
+    
+    
     <div className="mx-auto flex max-w-3xl flex-col space-y-4 p-6  sm:p-10 sm:px-2  lg:m-16">
       <h2 className="text-3xl font-bold">Your Collections</h2>
+        {loading ? <HashLoader className="m-auto p-10" color="#36d7b7" /> : null}
 
       <ul className="flex flex-col divide-y divide-gray-200">
         {products ? (
@@ -58,11 +66,13 @@ export function Collection() {
                   <div className="flex divide-x text-sm">
                     <button
                       onClick={async () => {
+                        setloading(true)
                         const data = await task.deleteCollection(product._id);
                         if (data.statusCode == 200) {
-                          console.log(data);
                           fetchAllCollection();
                         }
+                        setloading(false)
+                        
                       }}
                       type="button"
                       className="flex items-center space-x-2 px-2 py-1 pl-0"

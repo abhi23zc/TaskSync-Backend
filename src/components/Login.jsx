@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { HashLoader } from "react-spinners";
 
 
 function Login() {
@@ -22,13 +23,15 @@ function Login() {
       setisLoggedIn(false);
     }
   };
-
+  const [loading, setloading] = useState(false)
   const submit = async () => {
+    setloading(true)
     const data = await auth.login("", password, email);
     console.log(data)
     if (data.statusCode == 200) {
       setisLoggedIn(true);
       toast.success("Logged In Successfully")
+      setloading(false)
 
       navigate("/");
     } else {
@@ -44,8 +47,10 @@ function Login() {
 
   return (
     <>
+
       <ToastContainer />
       <section>
+      {loading ? <HashLoader className="m-auto p-10" color="#36d7b7" /> : null}
         <div className="grid grid-cols-1 lg:grid-cols-2">
           <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
             <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">

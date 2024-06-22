@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import task from "../../api/task.api";
 import { Trash, Heart, ArrowRight, Delete, Edit, Check } from "lucide-react";
 import { MyContext } from "../../context/TaskContext";
+import { toast } from "react-toastify";
 
 function Task({ product, collectionId }) {
   const [update, setupdate] = useState(false);
@@ -111,9 +112,8 @@ function Task({ product, collectionId }) {
               <button
                 onClick={async () => {
                   const data = await task.deleteTask(product._id);
-                  console.log(data);
-
                   await fetchAllTasks(collectionId);
+                  toast.success("Task deleted successfully")
                 }}
                 type="button"
                 className="flex items-center space-x-2 px-2 py-1 pl-0"

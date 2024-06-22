@@ -5,15 +5,18 @@ import task from "../../api/task.api";
 import { MyContext } from "../../context/TaskContext";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { HashLoader } from "react-spinners";
 
 export default function Add_Collection() {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
 
   const { fetchAllCollection } = useContext(MyContext);
+  const [loading, setloading] = useState(false)
 
   const submit = async () => {
     try {
+      setloading(true)
       const data = await task.createCollection(name, category);
       console.log(data);
       if (data.statusCode === 201) {
@@ -25,11 +28,15 @@ export default function Add_Collection() {
     } catch (error) {
       console.error("Error creating collection:", error);
       toast.error("An unexpected error occurred", { containerId: "addcollection" });
+    
     }
+    setloading(false)
   };
-
+  
   return (
+    
     <section>
+      {loading ? <HashLoader className="m-auto p-10" color="#36d7b7" /> : null}
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="h-full w-full">
           <Collection />

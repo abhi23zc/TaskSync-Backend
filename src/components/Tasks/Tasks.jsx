@@ -10,7 +10,6 @@ import Task from "./Task";
 export function Tasks() {
   const location = useLocation();
   const { collectionId } = location.state;
-
   const {
     setallTask,
     allTask,
